@@ -1,4 +1,5 @@
-from pypoker.game_items.default_items import Deck, Board
+from pypoker.game_items.default_objects import Deck, Board
+
 test_deck = Deck()
 
 # Deck tests
