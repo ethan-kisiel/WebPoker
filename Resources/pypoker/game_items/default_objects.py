@@ -10,24 +10,24 @@ class Card:
     represented as a number value and capital first letter
     of Jack, Queen, King, Ace
     '''
-    def __init__(self, face: int, value: int):
+    def __init__(self, face: int, value: int) -> None:
         self.__face = FACES[face]
         self.__value = VALUES[value]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'{self.__face}_{self.__value}'
     
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f'{self.__face}_{self.__value}'
     
 class Deck:
-    def __init__(self):
+    def __init__(self) -> None:
         self.__cards = []
         for f in range(len(FACES)):
             for v in range(len(VALUES)):
                 self.__cards.append(Card(f, v))
                 
-    def get_cards(self):
+    def get_cards(self) -> list:
         '''
         Returns array of string representations
         of self.__cards
@@ -44,7 +44,7 @@ class Deck:
         stop = len(self.__cards) -1
         return self.__cards.pop(ri(0, stop))
     
-    def r_draw_cards(self, amount) -> Card:
+    def r_draw_cards(self, amount) -> list[Card]:
         '''
         Draws and removes amount
         number of random cards
@@ -69,24 +69,24 @@ class Deck:
         except:
             return 0
 
-    def reset(self):
+    def reset(self) -> None:
         self.__init__()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         cards = ''
         cards.join(self.get_cards())
         return cards
     
 class Board:
-    def __init__(self):
+    def __init__(self) -> None:
         self.__board = {'flop': [None, None, None], 'turn': None, 'river': None}
         self.__phase = 0
         self.__pot = 0
 
-    def incriment_phase(self):
+    def incriment_phase(self) -> None:
         self.__phase += 1
 
-    def draw_flop(self, deck: Deck):
+    def draw_flop(self, deck: Deck) -> None:
         '''
         Burns a card from "deck" and
         sets flop to 3 random cards
@@ -94,21 +94,21 @@ class Board:
         deck.r_draw_card()
         self.__board['flop'] = deck.r_draw_cards(3)
 
-    def draw_turn(self, deck: Deck):
+    def draw_turn(self, deck: Deck) -> None:
         deck.r_draw_card()
         self.__board['turn'] = deck.r_draw_card()
 
-    def draw_river(self, deck: Deck):
+    def draw_river(self, deck: Deck) -> None:
         deck.r_draw_card()
         self.__board['river'] = deck.r_draw_card()
 
-    def increase_pot(self, bet_size: float):
+    def increase_pot(self, bet_size: float) -> None:
         self.__pot += bet_size
 
-    def reset(self):
+    def reset(self) -> None:
         self.__init__()
 
-    def __str__(self):
+    def __str__(self) -> None:
         flop = self.__board['flop']
         card_one = flop[0]
         card_two = flop[1]
