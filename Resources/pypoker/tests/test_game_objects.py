@@ -14,3 +14,7 @@ def test_player_obj():
     test_player.set_button('BB')
     print(test_player)
     assert len(str(test_player).split(',')) == 3
+    
+    test_player.add_chips(420.00)
+    
+    assert test_player.get_chips() == 420.00

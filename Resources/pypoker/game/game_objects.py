@@ -25,6 +25,13 @@ class Player:
     def place_bet(self, chips: float) -> None:
         self.__chips -= chips
     
+    def get_chips(self) -> float:
+        '''
+        returns self.__chips
+        for testing purposes
+        '''
+        return self.__chips
+    
     def has_chips(self) -> bool:
         return self.__chips > 0
     
