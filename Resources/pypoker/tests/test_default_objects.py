@@ -1,3 +1,4 @@
+from string import capwords
 from pypoker.game_items.default_objects import *
 
 test_deck = Deck()
@@ -31,6 +32,12 @@ def test_card_comparison():
     assert (card_one == card_two) == False
     assert (card_one > card_two) == True
     assert (card_one <= card_two) == False
+    
+def test_sync_card():
+    card = Card(0, -1)
+    card_0 = card
+    card.sync(str(card))
+    assert card == card_0
 
 # Board tests
 def test_board():

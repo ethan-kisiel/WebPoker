@@ -51,10 +51,10 @@ class Player:
         Calculates and returns value
         of hand paired with board
         '''
-        hb_combined = f'{board},{self.get_hand()}'
+        #hb_combined = 
         if self.get_hand() == '':
             return 0
-        print(get_split_pairs(hb_combined))
+        #print(get_split_pairs(hb_combined))
 
     def get_hand(self) -> str:
         '''

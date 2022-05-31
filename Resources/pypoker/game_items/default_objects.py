@@ -1,4 +1,5 @@
 from random import randint as ri
+
 FACES = ('c', 'd', 'h', 's')
 VALUES = ( '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A')
 
@@ -11,8 +12,23 @@ class Card:
     of Jack, Queen, King, Ace
     '''
     def __init__(self, face: int, value: int) -> None:
-        self.__face = FACES[face]
-        self.__value = VALUES[value]
+        try:
+            self.__face = FACES[face]
+            self.__value = VALUES[value]
+        except:
+            print("Could not instantiate Card")
+
+    def sync(self, rep: str) -> None:
+        '''
+        Takes f_V representation of card
+        sets self == to representation
+        '''
+        try:
+            _ = rep.split('_')
+            self.init(FACES.index(_[0], FACES.index(_[1])))
+
+        except:
+            print('Failed to sync')
 
     def __lt__(self, other) -> bool:
         if type(other) == Card:
