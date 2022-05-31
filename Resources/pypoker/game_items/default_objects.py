@@ -13,22 +13,36 @@ class Card:
     def __init__(self, face: int, value: int) -> None:
         self.__face = FACES[face]
         self.__value = VALUES[value]
-    
+
     def __lt__(self, other) -> bool:
-        pass
+        if type(other) == Card:
+            s_val, o_val = VALUES.index(self.__value), VALUES.index(other.get_value())
+            return s_val < o_val
+    
     def __le__(self, other) -> bool:
-        pass
+        if type(other) == Card:
+            s_val, o_val = VALUES.index(self.__value), VALUES.index(other.get_value())
+            return s_val <= o_val
+    
     def __eq__(self, other) -> bool:
-        pass
+        if type(other) == Card:
+            s_val, o_val = VALUES.index(self.__value), VALUES.index(other.get_value())
+            return s_val == o_val
+    
     def __gt__(self, other) -> bool:
-        pass
+        if type(other) == Card:
+            s_val, o_val = VALUES.index(self.__value), VALUES.index(other.get_value())
+            return s_val > o_val
+    
     def __ge__(self, other) -> bool:
-        pass
-    
+        if type(other) == Card:
+            s_val, o_val = VALUES.index(self.__value), VALUES.index(other.get_value())
+            return s_val >= o_val
+
+    def get_value(self) -> str:
+        return self.__value
+
     def __str__(self) -> str:
-        return f'{self.__face}_{self.__value}'
-    
-    def __repr__(self) -> str:
         return f'{self.__face}_{self.__value}'
 
 

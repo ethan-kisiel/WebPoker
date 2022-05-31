@@ -1,4 +1,4 @@
-from pypoker.game_items.default_objects import Deck, Board
+from pypoker.game_items.default_objects import *
 
 test_deck = Deck()
 
@@ -25,6 +25,13 @@ def test_card_str_repr():
     test_deck.reset()
     assert str(test_deck.draw_card(0)) == 'c_2'
 
+def test_card_comparison():
+    card_one = Card(0, -1)
+    card_two = Card(1, 8)
+    assert (card_one == card_two) == False
+    assert (card_one > card_two) == True
+    assert (card_one <= card_two) == False
+
 # Board tests
 def test_board():
     test_deck.reset()
@@ -43,3 +50,5 @@ def test_board():
     test_board.draw_river(test_deck)
     print('post-river: {}'.format(test_board))
     assert str(test_board) not in str(test_deck)
+    
+    
