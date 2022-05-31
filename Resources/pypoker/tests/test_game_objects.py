@@ -1,6 +1,10 @@
 from pypoker.game.game_objects import Player
-from pypoker.game_items.default_objects import Deck
+from pypoker.game_items.default_objects import Deck, Board
 deck = Deck()
+board = Board()
+board.draw_flop(deck)
+board.draw_turn(deck)
+board.draw_river(deck)
 
 test_player = Player()
 test_player.set_chips(69.00)
@@ -16,5 +20,6 @@ def test_player_obj():
     assert len(str(test_player).split(',')) == 3
     
     test_player.add_chips(420.00)
-    
     assert test_player.get_chips() == 420.00
+    
+    test_player.hand_value(board)

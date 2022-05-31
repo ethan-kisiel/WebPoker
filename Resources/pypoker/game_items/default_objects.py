@@ -13,13 +13,25 @@ class Card:
     def __init__(self, face: int, value: int) -> None:
         self.__face = FACES[face]
         self.__value = VALUES[value]
-
+    
+    def __lt__(self, other) -> bool:
+        pass
+    def __le__(self, other) -> bool:
+        pass
+    def __eq__(self, other) -> bool:
+        pass
+    def __gt__(self, other) -> bool:
+        pass
+    def __ge__(self, other) -> bool:
+        pass
+    
     def __str__(self) -> str:
         return f'{self.__face}_{self.__value}'
     
     def __repr__(self) -> str:
         return f'{self.__face}_{self.__value}'
-    
+
+
 class Deck:
     def __init__(self) -> None:
         self.__cards = []
@@ -76,7 +88,8 @@ class Deck:
         cards = ''
         cards.join(self.get_cards())
         return cards
-    
+
+
 class Board:
     def __init__(self) -> None:
         self.__board = {'flop': [None, None, None], 'turn': None, 'river': None}
@@ -108,7 +121,11 @@ class Board:
     def reset(self) -> None:
         self.__init__()
 
-    def __str__(self) -> None:
+    def __str__(self) -> str:
+        '''
+        Returns string of "face_value," for every
+        each game stage that is not None
+        '''
         flop = self.__board['flop']
         card_one = flop[0]
         card_two = flop[1]
