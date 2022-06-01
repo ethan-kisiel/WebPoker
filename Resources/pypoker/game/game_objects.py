@@ -1,22 +1,56 @@
+from bdb import Breakpoint
 from  pypoker.game_items.default_objects import *
 
+'''
 def get_split_pairs(hb_combined: str) -> dict:
-    '''
+    '' '
     Takes a string of "face_value,"
-    '''
+    '' '
     first_split = hb_combined.split(',')
     cards = dict()
     for i, c in enumerate(first_split):
         cur_key, cur_val = f'card{i}', c.split('_')
         cards[cur_key] = cur_val
     return cards
+'''
+
+def merge_sort(array):
+    if len(array) < 2:
+        return
+    
+    midpoint = int(len(array) / 2)
+    left = array[:midpoint]
+    right = array[midpoint:]
+    
+    merge_sort(left)
+    merge_sort(right)
+    
+    merge(array, left, right)
+
+def merge(array, left, right):
+    i = 0
+    while True:
+        if len(left) + len(right) == 0:
+            break
+        try:
+            if left[0] < right[0]:
+                array[i] = left.pop(0)
+            else:
+                array[i] = right.pop(0)
+        except:
+            if len(left) == 0:
+                array[i] = right.pop(0)
+            else:
+                array[i] = left.pop(0)
+                
+        i += 1
 
 class Player:
     def __init__(self) -> None:
         self.__hand = (None, None)
         self.__chips = 0
         self.button = None
-        
+
     def set_chips(self, chips: float) -> None:
         self.__chips = chips
 
@@ -51,9 +85,19 @@ class Player:
         Calculates and returns value
         of hand paired with board
         '''
-        #hb_combined = 
+        hb_combined = board.get_board()
+        hb_combined.append(self.__hand[0])
+        hb_combined.append(self.__hand[1])
+        for c in hb_combined:
+            print(c)
         if self.get_hand() == '':
             return 0
+        else:
+            merge_sort(hb_combined)
+        print('sorted: ')
+        for c in hb_combined:
+            print(c)
+        return hb_combined
         #print(get_split_pairs(hb_combined))
 
     def get_hand(self) -> str:

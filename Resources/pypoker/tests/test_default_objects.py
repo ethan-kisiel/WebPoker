@@ -58,4 +58,11 @@ def test_board():
     print('post-river: {}'.format(test_board))
     assert str(test_board) not in str(test_deck)
     
+    board_out = test_board.get_board()
+    test_sync = Card(0,0)
+    print(board_out[0])
+    test_sync.sync(str(board_out[0]))
+    print(test_sync)
+   # assert (board_out[0] == test_sync) == True
+    
     

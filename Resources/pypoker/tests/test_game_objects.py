@@ -1,5 +1,5 @@
 from pypoker.game.game_objects import Player
-from pypoker.game_items.default_objects import Deck, Board
+from pypoker.game_items.default_objects import *
 deck = Deck()
 board = Board()
 board.draw_flop(deck)
@@ -21,5 +21,12 @@ def test_player_obj():
     
     test_player.add_chips(420.00)
     assert test_player.get_chips() == 420.00
+        
+    card_one = Card(0,0)
+    card_two = Card(0,0)
+    card_one.sync('s_A')
+    card_two.sync('s_Q')
     
+    hand = (card_one, card_two)
+    test_player.set_hand(hand)
     test_player.hand_value(board)

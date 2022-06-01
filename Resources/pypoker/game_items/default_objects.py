@@ -18,17 +18,14 @@ class Card:
         except:
             print("Could not instantiate Card")
 
-    def sync(self, rep: str) -> None:
+    def sync(self, card_rep: str) -> None:
         '''
         Takes f_V representation of card
         sets self == to representation
         '''
-        try:
-            _ = rep.split('_')
-            self.init(FACES.index(_[0], FACES.index(_[1])))
-
-        except:
-            print('Failed to sync')
+        rep = card_rep.split('_')
+        rep = (FACES.index(rep[0]), VALUES.index(rep[1]))
+        self.__init__(rep[0], rep[1])
 
     def __lt__(self, other) -> bool:
         if type(other) == Card:
@@ -147,6 +144,29 @@ class Board:
 
     def increase_pot(self, bet_size: float) -> None:
         self.__pot += bet_size
+
+    def get_board(self) -> list[Card]:
+        '''
+        Returns all Cards, which are currently
+        a part of the board
+        '''
+        board = []
+
+        flop = self.__board['flop']
+        board.append(flop[0])
+        board.append(flop[1])
+        board.append(flop[2])
+        board.append(self.__board['turn'])
+        board.append(self.__board['river'])
+        
+        if None in self.__board['flop']:
+            return []
+        elif self.__board['turn'] is None:
+            return board[0:3]
+        elif self.__board['river'] is None:
+            return board[0:4]
+        else:
+            return board[0:5]
 
     def reset(self) -> None:
         self.__init__()
