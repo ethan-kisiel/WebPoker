@@ -1,5 +1,6 @@
 from pypoker.game.game_objects import Player
 from pypoker.game_items.default_objects import *
+from pypoker.utilities.utils import HandScoringUtil
 deck = Deck()
 board = Board()
 board.draw_flop(deck)
@@ -30,3 +31,8 @@ def test_player_obj():
     hand = (card_one, card_two)
     test_player.set_hand(hand)
     test_player.hand_value(board)
+    deck.reset()
+    test_straight = deck.get_cards()[0:5]
+    
+    print('Straight: ')
+    print(HandScoringUtil.is_straight(test_straight))

@@ -1,20 +1,7 @@
-from bdb import Breakpoint
-from  pypoker.game_items.default_objects import *
+from pypoker.game_items.default_objects import *
+from pypoker.utilities.utils import HandScoringUtil 
 
-'''
-def get_split_pairs(hb_combined: str) -> dict:
-    '' '
-    Takes a string of "face_value,"
-    '' '
-    first_split = hb_combined.split(',')
-    cards = dict()
-    for i, c in enumerate(first_split):
-        cur_key, cur_val = f'card{i}', c.split('_')
-        cards[cur_key] = cur_val
-    return cards
-'''
-
-def merge_sort(array):
+def merge_sort(array: list) -> None:
     if len(array) < 2:
         return
     
@@ -27,7 +14,7 @@ def merge_sort(array):
     
     merge(array, left, right)
 
-def merge(array, left, right):
+def merge(array: list, left: list, right: list) -> None:
     i = 0
     while True:
         if len(left) + len(right) == 0:
@@ -42,7 +29,6 @@ def merge(array, left, right):
                 array[i] = right.pop(0)
             else:
                 array[i] = left.pop(0)
-                
         i += 1
 
 class Player:
@@ -88,17 +74,14 @@ class Player:
         hb_combined = board.get_board()
         hb_combined.append(self.__hand[0])
         hb_combined.append(self.__hand[1])
-        for c in hb_combined:
-            print(c)
+        
         if self.get_hand() == '':
             return 0
         else:
-            merge_sort(hb_combined)
-        print('sorted: ')
+            HandScoringUtil.merge_sort(hb_combined)
+
         for c in hb_combined:
             print(c)
-        return hb_combined
-        #print(get_split_pairs(hb_combined))
 
     def get_hand(self) -> str:
         '''

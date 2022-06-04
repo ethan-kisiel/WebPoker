@@ -11,21 +11,30 @@ class Card:
     represented as a number value and capital first letter
     of Jack, Queen, King, Ace
     '''
-    def __init__(self, face: int, value: int) -> None:
-        try:
-            self.__face = FACES[face]
-            self.__value = VALUES[value]
-        except:
-            print("Could not instantiate Card")
+    def __init__(self, face: int, value: int, str_rep: str = None) -> None:
+        if str_rep is not None:
+            self.sync(str_rep)
+        else:
+            try:
+                self.__face = FACES[face]
+                self.__value = VALUES[value]
+            except:
+                print("Could not instantiate Card")
 
     def sync(self, card_rep: str) -> None:
         '''
         Takes f_V representation of card
         sets self == to representation
         '''
-        rep = card_rep.split('_')
-        rep = (FACES.index(rep[0]), VALUES.index(rep[1]))
-        self.__init__(rep[0], rep[1])
+        try:
+            rep = card_rep.split('_')
+            rep = (FACES.index(rep[0]), VALUES.index(rep[1]))
+            self.__init__(rep[0], rep[1])
+        except:
+            print(type(card_rep))
+
+    def __hash__(self):
+        return VALUES.index(self.__value) + 1
 
     def __lt__(self, other) -> bool:
         if type(other) == Card:
@@ -51,9 +60,24 @@ class Card:
         if type(other) == Card:
             s_val, o_val = VALUES.index(self.__value), VALUES.index(other.get_value())
             return s_val >= o_val
-
+    
+    def __sub__(self, other) -> int:
+        if type(other) == Card:
+            s_val, o_val = VALUES.index(self.__value), VALUES.index(other.get_value())
+            return s_val - o_val
+    
     def get_value(self) -> str:
         return self.__value
+    
+    def get_face(self) -> str:
+        return self.__face
+    
+    def get_points_value(self) -> int:
+        '''
+        Value specific to the points
+        range of 1-13 (for scoring hand)
+        '''
+        return VALUES.index(self.__value) + 1
 
     def __str__(self) -> str:
         return f'{self.__face}_{self.__value}'
@@ -65,8 +89,11 @@ class Deck:
         for f in range(len(FACES)):
             for v in range(len(VALUES)):
                 self.__cards.append(Card(f, v))
-                
-    def get_cards(self) -> list:
+
+    def get_cards(self) -> list[Card]:
+        return self.__cards
+
+    def get_string_cards(self) -> list[str]:
         '''
         Returns array of string representations
         of self.__cards
@@ -113,7 +140,7 @@ class Deck:
 
     def __repr__(self) -> str:
         cards = ''
-        cards.join(self.get_cards())
+        cards.join(self.get_string_cards())
         return cards
 
 
