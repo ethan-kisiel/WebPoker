@@ -37,19 +37,20 @@ class HandScoringUtil:
         sorted_cards = {'c': [], 'd': [], 'h': [], 's': []}
         for card in array:
             sorted_cards[card.get_face()].append(card)
-            
+
         return sorted_cards
 
-    def walk_array(array):
+    def walk_array(array: list[Card], size: int):
         '''
-        Given an array, return sets of 5 cards
+        Given an array, return sets of "size" cards
         starting from the last element backwards
         '''
+        
         arrays = []
-        length = len(array) - 4
+        length = len(array) - (size - 1)
         for i in range(length):
-            start = (i+5) * -1
-            stop = (i+2) * -1
+            start = (i+size) * -1
+            stop = i * -1
             if i == 0:
                 arrays.append(array[start:])
             else:
@@ -102,35 +103,28 @@ class HandScoringUtil:
                 if straight_score == 13:
                     return 1000
         return 0
-        
+
     def score_straight_flush(array: list[Card]) -> int:
         HandScoringUtil.merge_sort(array)
         sep_array = HandScoringUtil.sort_out_faces(array)
         for face in sep_array.keys():
             array = sep_array[face]
             if len(array) >= 5:
-                for array in HandScoringUtil.walk_array(array):
+                for array in HandScoringUtil.walk_array(array, 5):
                     straight_score = HandScoringUtil.is_straight(array)
                     if straight_score:
                         return HandScoringUtil.score_simple(straight_score, 8)
         return 0
 
     def score_four_oak(array: list[Card]) -> int:
-        length_one = len(array)
-        length_two = len(set(array))
-        
-        delta_change = length_one - length_two
-        if delta_change != 4:
-            return 0
-        else:
-            for i in range(len(array) - 3):
-                try:
-                    if len(set(array[i:i+4])) == 1:
-                        card_score = array[i].get_points_value()
-                        return HandScoringUtil.score_simple(card_score, 7)
-                except:
-                    print('error ran out of array to search')
-            return 0
+        HandScoringUtil.merge_sort(array)
+        searches = HandScoringUtil.walk_array(array, 4)
+
+        for search in searches:
+            if len(set(search)) == 1:
+                score = search[0].get_points_value()
+                return HandScoringUtil.score_simple(score, 7)
+        return 0
 
     def score_full_house():
         # check for pair & 3 of a kind

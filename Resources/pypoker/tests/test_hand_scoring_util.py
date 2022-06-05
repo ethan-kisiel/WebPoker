@@ -15,7 +15,12 @@ def test_scoring_methods():
         curr_card = Card(0,0,straight_flush[i])
         straight_flush[i] = curr_card
     
+    four_oak = ['d_A', 'd_10', 'd_9', 'c_10', 'h_10', 'c_A', 'h_A', 's_A']
     
+    for i in range(len(four_oak)):
+        curr_card = Card(0,0, four_oak[i])
+        four_oak[i] = curr_card
+    print(hsu.score_four_oak(four_oak))
     print(hsu.score_straight_flush(straight_flush))
     assert hsu.score_royal_flush(royal_flush) == 1000
         

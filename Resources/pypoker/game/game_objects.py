@@ -1,6 +1,6 @@
 from pypoker.game_items.default_objects import *
 from pypoker.utilities.utils import HandScoringUtil 
-
+'''
 def merge_sort(array: list) -> None:
     if len(array) < 2:
         return
@@ -30,6 +30,7 @@ def merge(array: list, left: list, right: list) -> None:
             else:
                 array[i] = left.pop(0)
         i += 1
+'''
 
 class Player:
     def __init__(self) -> None:
