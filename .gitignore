@@ -1,0 +1,11 @@
+
+.DS_Store
+.git/
+.vscode/
+venv/
+.pytest_cache/
+Resources/pypoker/utilities/__pycache__/
+Resources/pypoker/tests/__pycache__/
+Resources/pypoker/__pycache__/
+Resources/pypoker/game_items/__pycache__/
+Resources/pypoker/game/__pycache__/

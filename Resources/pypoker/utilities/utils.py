@@ -74,6 +74,11 @@ class HandScoringUtil:
         returns last element in array if
         it represents a straight
         '''
+        HandScoringUtil.merge_sort(array)
+        edge_array = list(set(array))
+        if edge_array[-1] - edge_array[3] == 9:
+            return edge_array[3].get_points_value()
+        
         values_range = array[-1] - array[0]
 
         if values_range == 4:
@@ -93,6 +98,16 @@ class HandScoringUtil:
 
         return array[-1].get_points_value()
     
+    def is_multiple(array: list[Card], amount: int) -> int:
+        HandScoringUtil.merge_sort(array)
+        searches = HandScoringUtil.walk_array(array, amount)
+
+        for search in searches:
+            if len(set(search)) == 1:
+                score = search[0].get_points_value()
+                return score
+        return 0
+
     def score_royal_flush(array: list[Card]) -> int:
         HandScoringUtil.merge_sort(array)
         sep_array = HandScoringUtil.sort_out_faces(array)
@@ -117,16 +132,28 @@ class HandScoringUtil:
         return 0
 
     def score_four_oak(array: list[Card]) -> int:
-        HandScoringUtil.merge_sort(array)
-        searches = HandScoringUtil.walk_array(array, 4)
-
-        for search in searches:
-            if len(set(search)) == 1:
-                score = search[0].get_points_value()
-                return HandScoringUtil.score_simple(score, 7)
+        four_oak = HandScoringUtil.is_multiple(array, 4)
+        if four_oak:
+            return HandScoringUtil.score_simple(four_oak, 7)
         return 0
+    
+    def score_three_oak(array: list[Card]) -> int:
+        three_oak = HandScoringUtil.is_multiple(array, 3)
+        if three_oak:
+            return HandScoringUtil.score_simple(three_oak, 3)
+        return 0
+    
+    def score_pair(array: list[Card]):
+        pair = HandScoringUtil.is_multiple(array, 2)
+        if pair:
+            return HandScoringUtil.score_simple(pair, 1)
 
-    def score_full_house():
+    def score_full_house(array: list[Card]) -> int:
         # check for pair & 3 of a kind
         # return bidir(lowcard, highcard)
+        pass
+    
+    def score_flush(array: list[Card]) -> int:
+        #check for flush & return simple score for highest card
+        # split array into suits & check size of each array
         pass
