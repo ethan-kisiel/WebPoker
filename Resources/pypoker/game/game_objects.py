@@ -99,9 +99,7 @@ class Player:
         btn_rep = f'{rep},{self.button}'
         return btn_rep if self.button else rep
 
-
 class Game:
-    
     def __init__(self) -> None:
         self.__deck, self.board = Deck(), Board()  
     

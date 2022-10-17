@@ -24,6 +24,8 @@ def test_draw_cards():
 # Card tests
 def test_card_str_repr():
     test_deck.reset()
+    ace = Card(0,0, 'c_A')
+    print(f'ACE VALUE: {ace.get_points_value()}')
     assert str(test_deck.draw_card(0)) == 'c_2'
 
 def test_card_comparison():

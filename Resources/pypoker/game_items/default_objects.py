@@ -11,7 +11,9 @@ class Card:
     represented as a number value and capital first letter
     of Jack, Queen, King, Ace
     '''
+    
     def __init__(self, face: int, value: int, str_rep: str = None) -> None:
+
         if str_rep is not None:
             self.sync(str_rep)
         else:
@@ -115,7 +117,7 @@ class Deck:
         Draws and removes amount
         number of random cards
         '''
-        
+
         cards = []
         for _ in range(amount):
             stop = len(self.__cards) -1
